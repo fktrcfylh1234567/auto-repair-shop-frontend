@@ -1,0 +1,28 @@
+<mainMenu></mainMenu>
+<h2>Материалы</h2>
+<p>
+  <input type="button" style="margin-right: 10px" value="Создать новый" (click)="material_open(0)">
+  Подстрока поиска: <input type="text" style="margin-right: 10px" name="filter_name" [(ngModel)]="filter_name" (change)="filter_name_change()">
+  <input name="part" type="radio" value="true" [(ngModel)]="filter_part" (change)="filter_name_change()">Запчасти
+  <input name="part" type="radio" value="false" [(ngModel)]="filter_part" (change)="filter_name_change()">Материалы
+  <input name="part" type="radio" value="" checked [(ngModel)]="filter_part" (change)="filter_name_change()">Все
+<p>
+<table>
+  <tr>
+    <th>Наименование</th>
+    <th>Запчасть</th>
+    <th>Единица</th>
+    <th>Артикул</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row of this.materialsList">
+    <td>{{row.material_name}}</td>
+    <td><input type="checkbox" name="part" [checked]="row.part" disabled></td>
+    <td>{{row.measure}}</td>
+    <td>{{row.article}}</td>
+    <td><input type="button" value="Редактировать" (click)="material_open(row.material_id)"></td>
+    <td><input type="button" value="Удалить" (click)="material_delete(row.material_id)"></td>
+  </tr>
+</table>
+

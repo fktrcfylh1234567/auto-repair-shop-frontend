@@ -1,0 +1,16 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+table {
+  border: 0px solid gray;
+}
+
+td {
+  border: 0px solid gray;
+  padding: 5px 10px;
+}
+
+th {
+  border: 0px solid gray;
+  padding: 5px 10px;
+  font-size: 14px;
+}

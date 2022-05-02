@@ -1,0 +1,44 @@
+<mainMenu></mainMenu>
+<h2>Заказы</h2>
+<p>
+  <input type="button" style="margin-right: 10px" value="Создать новый" (click)="order_open(0)">
+  <mat-form-field appearance="fill"  style="margin-right: 10px">
+    <mat-label>Скидочная карта</mat-label>
+    <mat-select (selectionChange)="changeDiscountCard($event.value)">
+      <mat-option [value]=0></mat-option>
+      <mat-option *ngFor="let mat of this.discountCards" [value]="mat.card_number">{{mat.card_number}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Дата с: <input type="date" style="margin-right: 10px" name="begin_date" [(ngModel)]="begin_date" (change)="filterList()">
+  по: <input type="date" style="margin-right: 10px" name="end_date" [(ngModel)]="end_date" (change)="filterList()">
+</p>
+
+<table>
+  <tr>
+    <th>Номер заказа</th>
+    <th>Дата</th>
+    <th>Автомобиль</th>
+    <th>Скид.карта</th>
+    <th>Телефон</th>
+    <th>Скидка,%</th>
+    <th>Кол. услуг</th>
+    <th>Сумма</th>
+    <th>Сумма со скидкой</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row of this.ordersList">
+    <td>{{row.order_id}}</td>
+    <td>{{datePipe.transform_rus(row.order_date)}}</td>
+    <td>{{row.car}}</td>
+    <td>{{row.card_number}}</td>
+    <td>{{row.customer_telephone}}</td>
+    <td>{{row.percent_off}}</td>
+    <td>{{row.order_lines}}</td>
+    <td>{{row.total}}</td>
+    <td>{{row.discounted_total}}</td>
+    <td><input type="button" value="Редактировать" (click)="order_open(row.order_id)"></td>
+    <td><input type="button" value="Удалить" (click)="order_delete(row.order_id)"></td>
+  </tr>
+</table>
+

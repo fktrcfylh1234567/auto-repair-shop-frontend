@@ -1,0 +1,29 @@
+<mainMenu></mainMenu>
+<h2>Отчет по выполненным работам</h2>
+<p>
+  Дата с: <input type="date" style="margin-right: 10px" name="begin_date" [(ngModel)]="begin_date" (change)="filterList()">
+  по: <input type="date" style="margin-right: 10px" name="end_date" [(ngModel)]="end_date" (change)="filterList()">
+</p>
+
+<table>
+  <tr>
+    <th>Выполненная работа</th>
+    <th>Кол-во заказов</th>
+    <th>Номера заказов</th>
+    <th>Средняя скидка</th>
+    <th>Максимальная скидка</th>
+    <th>Сумма</th>
+    <th>Сумма со скидкой</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row of this.executedWorks">
+    <td>{{row.service_name}}</td>
+    <td>{{row.orders}}</td>
+    <td>{{row.order_ids}}</td>
+    <td>{{row.average_percent_off}}</td>
+    <td>{{row.max_percent_off}}</td>
+    <td>{{row.sum}}</td>
+    <td>{{row.discount_sum}}</td>
+  </tr>
+</table>

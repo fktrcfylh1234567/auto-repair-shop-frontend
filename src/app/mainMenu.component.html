@@ -1,0 +1,20 @@
+<button *ngIf="section_available('management')" style="margin-right: 10px" mat-button [matMenuTriggerFor]="entities">Управление</button>
+<mat-menu #entities="matMenu">
+  <button mat-menu-item (click)=clickStaffers($event)>Сотрудники</button>
+  <button mat-menu-item (click)=clickDiscountCards($event)>Скидочные карты</button>
+  <button mat-menu-item (click)=clickServices($event)>Услуги</button>
+  <button mat-menu-item (click)=clickSalary($event)>Зарплата ремонтников</button>
+</mat-menu>
+
+<button style="margin-right: 10px" mat-button [matMenuTriggerFor]="storage">Склад</button>
+<mat-menu #storage="matMenu">
+  <button mat-menu-item *ngIf="section_available('storage')" (click)=clickMaterials($event)>Материалы</button>
+  <button mat-menu-item *ngIf="section_available('storage')" (click)=clickPurchases($event)>Поступления материалов</button>
+  <button mat-menu-item (click)=clickMaterialsUsing($event)>Ведомость по материалам</button>
+</mat-menu>
+
+<button *ngIf="section_available('orders')" style="margin-right: 10px" mat-button [matMenuTriggerFor]="orders">Заказы</button>
+<mat-menu #orders="matMenu">
+  <button mat-menu-item (click)=clickOrders($event)>Заказы</button>
+  <button mat-menu-item (click)=clickExecutedWork($event)>Отчет по выполненным работам</button>
+</mat-menu>

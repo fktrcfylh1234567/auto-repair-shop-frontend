@@ -1,0 +1,13 @@
+<mainMenu></mainMenu>
+<h2>Сотрудник</h2>
+<p>Наименование: <input type="text" name="staffer_name" [(ngModel)]="staffer.staffer_name"></p>
+<p>Роль: <select [(ngModel)]="staffer.role" name="role">
+  <option *ngFor="let role of roleOptions" [ngValue]="role">{{role}}</option>
+</select></p>
+<p>Логин: <input type="text" name="staffer_name" [(ngModel)]="staffer.login"></p>
+<p>Пароль: <input type="text" name="staffer_name" [(ngModel)]="staffer.password"></p>
+<p>
+  <input style="margin-right: 10px" type="button" value="Сохранить" (click)="staffer_save()">
+  <input type="button" value="Выход" (click)="staffer_cancel()">
+</p>
+<br><div style="color: red;" *ngIf="isError">{{errorMessage}}</div>

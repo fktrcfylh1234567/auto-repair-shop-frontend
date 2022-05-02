@@ -1,0 +1,21 @@
+<mainMenu></mainMenu>
+<h2 *ngIf="purchase.purchase_id != 0">Поступление материалов №{{purchase.purchase_id}}</h2>
+<h2 *ngIf="purchase.purchase_id == 0">Поступление материалов (создание)</h2>
+<p>Дата: <input type="date" [value]="datePipe.transform(purchase.purchase_date)" (blur)="setDateValue($event)"></p>
+<p>Поставщик: <input type="text" name="trader" [(ngModel)]="purchase.trader">
+
+<p><mat-form-field appearance="outline">
+  <mat-label>Материал</mat-label>
+  <mat-select [(value)]="purchase.material_id">
+    <mat-option *ngFor="let mat of this.materials" [value]="mat.material_id">{{mat.material_name}}</mat-option>
+  </mat-select>
+</mat-form-field></p>
+
+<p>Цена: <input type="number" size="5" name="price" [(ngModel)]="purchase.price" (change)="calcsum()"></p>
+<p>Количество: <input type="number" size="5" name="quantity" [(ngModel)]="purchase.quantity" (change)="calcsum()"></p>
+<p>Сумма: <input type="number" size="5" name="sum" [(ngModel)]="purchase.sum" disabled></p>
+<p>
+  <input style="margin-right: 10px" type="button" value="Сохранить" (click)="purchase_save()">
+  <input type="button" value="Выход" (click)="purchase_cancel()">
+</p>
+<br><div style="color: red;" *ngIf="isError">{{errorMessage}}</div>

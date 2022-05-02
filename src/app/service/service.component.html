@@ -1,0 +1,9 @@
+<mainMenu></mainMenu>
+<h2>Услуга</h2>
+<p>Наименование: <input type="text" name="service_name" [(ngModel)]="service.service_name"></p>
+<p>Цена: <input type="number" size="5" name="price" [(ngModel)]="service.price"></p>
+<p>
+  <input style="margin-right: 10px" type="button" value="Сохранить" (click)="service_save()">
+  <input type="button" value="Выход" (click)="service_cancel()">
+</p>
+<br><div style="color: red;" *ngIf="isError">{{errorMessage}}</div>

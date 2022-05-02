@@ -1,0 +1,23 @@
+<mainMenu></mainMenu>
+<h2>Услуги</h2>
+<p>
+  <input type="button" style="margin-right: 10px" value="Создать новую" (click)="service_open(0)">
+  Подстрока поиска: <input type="text" name="filter_name" [(ngModel)]="filter_name" (change)="filter_name_change()">
+</p>
+
+<table>
+  <tr>
+    <th>Наименование</th>
+    <th>Цена</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row of this.servicesList">
+    <td>{{row.service_name}}</td>
+    <td>{{row.price}}</td>
+    <td><input type="button" value="Редактировать" (click)="service_open(row.service_id)"></td>
+    <td><input type="button" value="Удалить" (click)="service_delete(row.service_id)"></td>
+  </tr>
+</table>
+
+

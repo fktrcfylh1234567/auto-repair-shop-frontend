@@ -1,0 +1,117 @@
+<mainMenu></mainMenu>
+<h2 *ngIf="order.order_id != 0">Заказ №{{order.order_id}}</h2>
+<h2 *ngIf="order.order_id == 0">Заказ (создание)</h2>
+<p>
+  Дата: <input type="date" style="margin-right: 10px" [value]="datePipe.transform(order.order_date)" (blur)="setDateValue($event)">
+  Автомобиль: <input type="text" name="car" [(ngModel)]="order.car">
+</p>
+
+<p>
+  <mat-form-field appearance="outline" style="margin-right: 10px">
+    <mat-label>Скидочная карта</mat-label>
+    <mat-select [(value)]="order.card_number" (selectionChange)="changeDiscountCard($event.value)">
+      <mat-option [value]=""></mat-option>
+      <mat-option *ngFor="let mat of this.discountCards" [value]="mat.card_number">{{mat.card_number}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Скидка, %: <input type="number" size="5" name="percent_off" [(ngModel)]="order.percent_off" (change)="calcTotal()">
+</p>
+<p>
+  Сумма заказа: {{total}} руб.<br>
+  Сумма с учетом скидки: {{discounted_total}} руб.
+</p><br>
+<input type="button" style="margin-right: 10px" value="Услуги" (click)="changeTab(0)">
+<input type="button" style="margin-right: 10px" value="Материалы" (click)="changeTab(1)">
+<input type="button" style="margin-right: 10px" value="Ремонтники" (click)="changeTab(2)">
+
+<!--*** Услуги-->
+<div *ngIf="tabNumber == 0">
+<h3>Услуги</h3>
+<input type="button" style="margin-right: 10px" value="Добавить строку" (click)="servicesAddLine()">
+<table>
+  <tr>
+    <th>№</th>
+    <th>Услуга</th>
+    <th>Цена</th>
+    <th>Количество</th>
+    <th>Сумма</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row_s of this.order.order_services">
+    <td>{{row_s.order_line}}</td>
+    <td>
+      <mat-form-field appearance="legacy" [style.width.px]=300>
+        <mat-select [(value)]="row_s.service_id" (selectionChange)="changeService(row_s)">
+          <mat-option *ngFor="let serv of this.services" [value]="serv.service_id">{{serv.service_name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td><input type="number" size="5" name="price" [(ngModel)]="row_s.price" (change)="calcsum(row_s)"></td>
+    <td><input type="number" size="5" name="quantity" [(ngModel)]="row_s.quantity" (change)="calcsum(row_s)"></td>
+    <td><input type="number" size="5" name="sum" [(ngModel)]="row_s.sum" disabled></td>
+    <td><input type="button" value="Удалить" (click)="services_line_delete(row_s)"></td>
+  </tr>
+</table>
+</div>
+
+
+<!--*** Материалы-->
+<div *ngIf="tabNumber == 1">
+  <h3>Материалы</h3>
+  <input type="button" style="margin-right: 10px" value="Добавить строку" (click)="materialsAddLine()">
+  <table>
+    <tr>
+      <th>№</th>
+      <th>Материал</th>
+      <th>Количество</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let row_m of this.order.order_materials">
+      <td>{{row_m.order_line}}</td>
+      <td>
+        <mat-form-field appearance="legacy" [style.width.px]=300>
+          <mat-select [(value)]="row_m.material_id">
+            <mat-option *ngFor="let mat of this.materials" [value]="mat.material_id">{{mat.material_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td><input type="number" size="5" name="quantity" [(ngModel)]="row_m.quantity"></td>
+      <td><input type="button" value="Удалить" (click)="materials_line_delete(row_m)"></td>
+    </tr>
+  </table>
+</div>
+
+
+  <!--*** Ремонтники-->
+<div *ngIf="tabNumber == 2">
+  <h3>Ремонтники</h3>
+  <input type="button" style="margin-right: 10px" value="Добавить строку" (click)="staffersAddLine()">
+  <table>
+    <tr>
+      <th>№</th>
+      <th>Ремонтник</th>
+      <th>КТУ</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let row_r of this.order.order_staffers">
+      <td>{{row_r.order_line}}</td>
+      <td>
+        <mat-form-field appearance="legacy" [style.width.px]=300>
+          <mat-select [(value)]="row_r.staffer_id">
+            <mat-option *ngFor="let staff of this.staffers" [value]="staff.staffer_id">{{staff.staffer_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td><input type="number" size="5" name="quantity" [(ngModel)]="row_r.ktu"></td>
+      <td><input type="button" value="Удалить" (click)="staffers_line_delete(row_r)"></td>
+    </tr>
+  </table>
+</div>
+
+
+<br><br>
+<p>
+  <input style="margin-right: 10px" type="button" value="Сохранить" (click)="order_save()">
+  <input type="button" value="Выход" (click)="order_cancel()">
+</p>
+<br><div style="color: red;" *ngIf="isError">{{errorMessage}}</div>

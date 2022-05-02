@@ -1,0 +1,32 @@
+<mainMenu></mainMenu>
+<h2>Ведомость по материалам</h2>
+<p>
+  Дата с: <input type="date" style="margin-right: 10px" name="begin_date" [(ngModel)]="begin_date">
+  по: <input type="date" style="margin-right: 10px" name="end_date" [(ngModel)]="end_date">
+  В наличии: <input name="is_available" style="margin-right: 10px" type="checkbox" value="" [(ngModel)]="is_available">
+  <input type="button" value="Сформировать" (click)="filterList()">
+</p>
+<p style="color: red;" *ngIf="isError">{{errorMessage}}</p>
+
+<table>
+  <tr>
+    <th>Материал</th>
+    <th>Начальный остаток</th>
+    <th>Количество приход</th>
+    <th>Номера поступлений</th>
+    <th>Количество расход</th>
+    <th>Номера заказов</th>
+    <th>Конечный остаток</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row of this.materialsUsing">
+    <td>{{row.material_name}}</td>
+    <td>{{row.balance_begin}}</td>
+    <td>{{row.incoming_sum}}</td>
+    <td>{{row.purchase_ids}}</td>
+    <td>{{row.outgoing_sum}}</td>
+    <td>{{row.order_ids}}</td>
+    <td>{{row.balance_end}}</td>
+  </tr>
+</table>

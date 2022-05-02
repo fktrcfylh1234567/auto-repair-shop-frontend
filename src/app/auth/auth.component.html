@@ -1,0 +1,4 @@
+<p>Логин: <input type="text" id="login" [(ngModel)]="login"></p>
+<p>Пароль: <input type="text" id="password" [(ngModel)]="password"></p>
+<p style="color: red;" *ngIf="isLoginIncorrect">Неверный логин или пароль</p>
+<input type="button" value="Войти" (click)="submit()" [disabled]="loginIsEmpty()">

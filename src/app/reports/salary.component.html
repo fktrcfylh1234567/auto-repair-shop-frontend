@@ -1,0 +1,30 @@
+<mainMenu></mainMenu>
+<h2>Зарплата ремонтников</h2>
+<p>
+  Дата с: <input type="date" style="margin-right: 10px" name="begin_date" [(ngModel)]="begin_date">
+  по: <input type="date" style="margin-right: 10px" name="end_date" [(ngModel)]="end_date">
+  Коэффициент: <input name="coeff" size="2" style="margin-right: 10px" type="number" value="" [(ngModel)]="coeff">
+  <input type="button" value="Сформировать" (click)="filterList()">
+</p>
+<p style="color: red;" *ngIf="isError">{{errorMessage}}</p>
+
+<div *ngFor="let row of this.salary.filter(isStafferName)">
+  <h4>{{row.staffer_name}}:  зарплата = {{row.zp}} руб.,  средний КТУ = {{row.ktu}}</h4>
+<table>
+  <tr>
+    <th>Номер заказа</th>
+    <th>Сумма заказа</th>
+    <th>КТУ</th>
+    <th>Зарплата</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row2 of getRowsForStaffer(row.staffer_id)">
+    <td>{{row2.order_id}}</td>
+    <td>{{row2.orders_sum}}</td>
+    <td>{{row2.ktu}}</td>
+    <td>{{row2.zp}}</td>
+  </tr>
+</table>
+  <br><br>
+</div>

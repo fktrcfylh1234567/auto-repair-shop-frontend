@@ -1,0 +1,11 @@
+<mainMenu></mainMenu>
+<h2>Материал</h2>
+<p>Наименование: <input type="text" name="material_name" [(ngModel)]="material.material_name"></p>
+<p>Запчасть:<input type="checkbox" name="part" [(ngModel)]="material.part">
+<p>Ед.измерения: <input type="text" name="measure" [(ngModel)]="material.measure"></p>
+<p>Артикул: <input type="text" name="article" [(ngModel)]="material.article"></p>
+<p>
+  <input style="margin-right: 10px" type="button" value="Сохранить" (click)="material_save()">
+  <input type="button" value="Выход" (click)="material_cancel()">
+</p>
+<br><div style="color: red;" *ngIf="isError">{{errorMessage}}</div>

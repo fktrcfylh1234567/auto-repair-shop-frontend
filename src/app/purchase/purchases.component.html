@@ -1,0 +1,42 @@
+<mainMenu></mainMenu>
+<h2>Поступления материалов</h2>
+<p>
+  <input type="button" style="margin-right: 10px" value="Создать новое" (click)="purchase_open(0)">
+  <mat-form-field appearance="fill"  style="margin-right: 10px">
+    <mat-label>Материал</mat-label>
+    <mat-select (selectionChange)="changeMaterial($event.value)">
+      <mat-option [value]=0></mat-option>
+      <mat-option *ngFor="let mat of this.materials" [value]="mat.material_id">{{mat.material_name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Дата с: <input type="date" style="margin-right: 10px" name="begin_date" [(ngModel)]="begin_date" (change)="filterList()">
+  по: <input type="date" style="margin-right: 10px" name="end_date" [(ngModel)]="end_date" (change)="filterList()">
+</p>
+
+<table>
+  <tr>
+    <th>Номер поступления</th>
+    <th>Дата</th>
+    <th>Поставщик</th>
+    <th>Материал</th>
+    <th>Единица</th>
+    <th>Цена</th>
+    <th>Количество</th>
+    <th>Сумма</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row of this.purchasesList">
+    <td>{{row.purchase_id}}</td>
+    <td>{{datePipe.transform_rus(row.purchase_date)}}</td>
+    <td>{{row.trader}}</td>
+    <td>{{row.material_name}}</td>
+    <td>{{row.measure}}</td>
+    <td>{{row.price}}</td>
+    <td>{{row.quantity}}</td>
+    <td>{{row.sum}}</td>
+    <td><input type="button" value="Редактировать" (click)="purchase_open(row.purchase_id)"></td>
+    <td><input type="button" value="Удалить" (click)="purchase_delete(row.purchase_id)"></td>
+  </tr>
+</table>
+

@@ -1,0 +1,19 @@
+<mainMenu></mainMenu>
+<h2>Сотрудники</h2>
+<p><input type="button" value="Создать нового" (click)="staffer_open(0)"></p>
+<table>
+  <tr>
+    <th>Наименование</th>
+    <th>Роль</th>
+    <th>Логин</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let row of this.staffersList">
+    <td>{{row.staffer_name}}</td>
+    <td>{{row.role}}</td>
+    <td>{{row.login}}</td>
+    <td><input type="button" value="Редактировать" (click)="staffer_open(row.staffer_id)"></td>
+    <td><input type="button" value="Удалить" (click)="staffer_delete(row.staffer_id)"></td>
+  </tr>
+</table>
